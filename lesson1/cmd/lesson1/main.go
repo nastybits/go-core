@@ -1,4 +1,4 @@
-// Package main - задание первого урока курса go-core.
+// Package main - задание первого урока для курса go-core.
 package main
 
 import (
