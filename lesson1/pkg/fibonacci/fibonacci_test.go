@@ -19,7 +19,7 @@ func TestNumber(t *testing.T) {
 	for _, tt := range tests {
 		t.Run("Test", func(t *testing.T) {
 			got, err := Number(tt.arg)
-			if tt.arg <= 0 && err == nil {
+			if (tt.arg <= 0 || tt.arg > 20) && err == nil {
 				t.Errorf("Number(%d) = %d, ожидалось сообщение об ошибке", tt.arg, got)
 			}
 			if tt.arg > 0 && got != tt.want {

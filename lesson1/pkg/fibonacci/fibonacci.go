@@ -5,8 +5,9 @@ import "fmt"
 
 // Number - возвращает число Фибоначчи по переданному индексу.
 func Number(n int) (res int, err error) {
-	if n <= 0 {
-		err = fmt.Errorf("Значение должно быть больше 0")
+	if n <= 0 || n > 20 {
+		err = fmt.Errorf("Значение должно быть больше 0 и меньше 20")
+		return
 	}
 
 	return recursive(n), err
