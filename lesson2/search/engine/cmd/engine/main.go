@@ -1,3 +1,4 @@
+// Package main - задание вторго урока для курса go-core.
 package main
 
 import (
@@ -5,8 +6,6 @@ import (
 	"education/lesson2/search/engine/pkg/search"
 	"fmt"
 )
-
-
 
 func main() {
 	sites := [2]string{"https://golangs.org", "https://altech.online"}
@@ -47,5 +46,4 @@ func main() {
 			}
 		}
 	}
-
 }
