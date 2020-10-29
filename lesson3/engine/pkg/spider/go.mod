@@ -1,4 +1,4 @@
-module education/lesson3/crawler/pkg/spider
+module education/lesson3/engine/pkg/spider
 
 go 1.13
 

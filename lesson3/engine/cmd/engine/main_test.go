@@ -1,13 +1,13 @@
 package main
 
 import (
-	"education/lesson3/engine/pkg/scanner"
+	"education/lesson3/engine/pkg/stub"
 	"testing"
 )
 
 func Test_find (t *testing.T) {
-	var s scanner.Stub
-	data, err := scan(s, "stub", 2)
+	var s stub.StubScanner
+	data, err := scan(&s, "stub", 2)
 	if err != nil {
 		t.Errorf("Ошибка при использовании заглушки")
 	}

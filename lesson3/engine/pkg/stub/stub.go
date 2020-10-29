@@ -1,8 +1,11 @@
-package scanner
+// Package stub - пакет-заглушка для реализации поискового робота
+// Имитирует паука обходящего web-страницы при помощи метода Scan
+package stub
 
-type Stub int
+type Spider int
 
-func (s Stub) Scan(url string, depth int) (map[string]string, error) {
+// Scan - метод типа Spider возвращающий предустановленные данные
+func (s *Spider) Scan(url string, depth int) (map[string]string, error) {
 	pages := make(map[string]string)
 	pages["http://test1.url"]  = "Some test 1 url title"
 	pages["http://test2.url"]  = "Some test 2 url title"
@@ -16,3 +19,4 @@ func (s Stub) Scan(url string, depth int) (map[string]string, error) {
 
 	return pages, nil
 }
+

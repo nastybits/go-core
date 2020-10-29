@@ -1,8 +1,8 @@
-// Package main - задание вторго урока для курса go-core.
+// Package main - задание третьего урока для курса go-core.
 package main
 
 import (
-	"education/lesson3/engine/pkg/scanner"
+	"education/lesson3/engine/pkg/spider"
 	"fmt"
 	"strings"
 )
@@ -10,11 +10,11 @@ import (
 func main() {
 	urls := [2]string{"https://golangs.org", "https://altech.online"}
 	pages := make(map[string]string)
-	var s scanner.Web
+	var s Spider
 
 	fmt.Print("Сканирование сайтов ")
 	for _, url := range urls {
-		data, err := scan(s, url, 2)
+		data, err := scan(&s, url, 2)
 		if err != nil {
 			return
 		}
@@ -49,12 +49,20 @@ func main() {
 	}
 }
 
-// Scanner
+// Scanner - интерфейс для поисковых роботов
 type Scanner interface {
 	Scan(url string, depth int) (map[string]string, error)
 }
 
-// Scan
+// Spider - тип представляющий собой поискового робота реализует интерфейс Scanner
+type Spider int
+
+// Scan - метод типа Spider для реализации интерфейса Scanner
+func (s *Spider) Scan(url string, depth int) (map[string]string, error) {
+	return spider.Scan(url, depth)
+}
+
+// Scan - возвращает данные просканированыем объектом реализующим интерфейс Scanner
 func scan(s Scanner, url string, depth int) (map[string]string, error) {
 	return s.Scan(url, depth)
 }
