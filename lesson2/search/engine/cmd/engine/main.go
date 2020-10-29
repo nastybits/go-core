@@ -34,7 +34,7 @@ func main() {
 			return
 		}
 
-		res := search.Find(text, pages)
+		res := search.Word(text, pages)
 		if len(res) == 0 {
 			fmt.Printf("По запросу \"%s\" ничего не найдено\n", text)
 		}

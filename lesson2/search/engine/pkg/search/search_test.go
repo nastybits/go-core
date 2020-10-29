@@ -2,7 +2,7 @@ package search
 
 import "testing"
 
-func TestFind(t *testing.T) {
+func TestWord(t *testing.T) {
 	data := make(map[string]string)
 	data["http://test.com"] = "Test dot com title"
 	data["http://some.com"] = "Some dot com title"
@@ -22,11 +22,13 @@ func TestFind(t *testing.T) {
 		{"5", "ru", 2},
 		{"6", "title", 5},
 		{"7", "123", 0},
+		{"8", "http", 5},
+		{"8", "level2", 1},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := Find(tt.arg, data)
+			got := Word(tt.arg, data)
 			if len(got) != tt.want {
 				t.Errorf("Find(%s) = %d, ожидалось %d", tt.arg, len(got), tt.want)
 			}

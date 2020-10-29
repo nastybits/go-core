@@ -8,12 +8,12 @@ import (
 
 // Find поиск подстроки в значениях ассоциативного массива
 // Возвращает ассоциативный массив из элементов переданного массива удовлеворяющих условиям поиска
-func Find(text string, data map[string]string) (res map[string]string) {
+func Word(text string, data map[string]string) (res map[string]string) {
 	res = make(map[string]string)
 	text = strings.ToLower(text)
 
 	for key, val := range data {
-		if strings.Contains(strings.ToLower(val), text) {
+		if strings.Contains(strings.ToLower(val), text) || strings.Contains(strings.ToLower(key), text) {
 			res[key] = val
 		}
 	}
