@@ -1,13 +1,13 @@
 package main
 
 import (
-	"education/lesson3/engine/pkg/stub"
+	"go.core/lesson3/engine/pkg/stub"
 	"testing"
 )
 
-func Test_find (t *testing.T) {
-	var s stub.StubScanner
-	data, err := scan(&s, "stub", 2)
+func Test_find(t *testing.T) {
+	var s stub.Spider
+	data, err := scan(s, "stub", 2)
 	if err != nil {
 		t.Errorf("Ошибка при использовании заглушки")
 	}

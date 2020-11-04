@@ -1,3 +1,3 @@
-module education/lesson1/pkg/fibonacci
+module go.core/lesson1/pkg/fibonacci
 
 go 1.13

@@ -2,9 +2,9 @@
 package main
 
 import (
-	"education/lesson1/pkg/fibonacci"
 	"flag"
 	"fmt"
+	"go.core/lesson1/pkg/fibonacci"
 	"log"
 )
 

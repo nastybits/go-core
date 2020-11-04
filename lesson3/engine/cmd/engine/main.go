@@ -2,8 +2,8 @@
 package main
 
 import (
-	"education/lesson3/engine/pkg/spider"
 	"fmt"
+	"go.core/lesson3/engine/pkg/spider"
 	"strings"
 )
 
@@ -14,7 +14,7 @@ func main() {
 
 	fmt.Print("Сканирование сайтов ")
 	for _, url := range urls {
-		data, err := scan(&s, url, 2)
+		data, err := scan(s, url, 2)
 		if err != nil {
 			return
 		}
@@ -58,7 +58,7 @@ type Scanner interface {
 type Spider int
 
 // Scan - метод типа Spider для реализации интерфейса Scanner
-func (s *Spider) Scan(url string, depth int) (map[string]string, error) {
+func (s Spider) Scan(url string, depth int) (map[string]string, error) {
 	return spider.Scan(url, depth)
 }
 

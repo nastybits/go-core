@@ -1,4 +1,4 @@
-module education/lesson3/engine/pkg/spider
+module go.core/lesson3/engine/pkg/spider
 
 go 1.13
 

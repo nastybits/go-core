@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"education/lesson2/search/crawler/pkg/spider"
+	"go.core/lesson2/search/crawler/pkg/spider"
 )
 
 func main() {
@@ -18,4 +18,3 @@ func main() {
 		fmt.Printf("Страница %s имеет адрес: %s\n", v, k)
 	}
 }
-

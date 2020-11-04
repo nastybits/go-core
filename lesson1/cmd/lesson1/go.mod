@@ -1,7 +1,7 @@
-module education/lesson1/cmd/lesson1
+module go.core/lesson1/cmd/lesson1
 
 go 1.13
 
-replace education/lesson1/pkg/fibonacci v0.0.0 => ../../pkg/fibonacci
+replace go.core/lesson1/pkg/fibonacci v0.0.0 => ../../pkg/fibonacci
 
-require education/lesson1/pkg/fibonacci v0.0.0
+require go.core/lesson1/pkg/fibonacci v0.0.0
