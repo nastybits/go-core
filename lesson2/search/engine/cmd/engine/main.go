@@ -2,9 +2,9 @@
 package main
 
 import (
-	"education/lesson2/search/crawler/pkg/spider"
-	"education/lesson2/search/engine/pkg/search"
 	"fmt"
+	"go.core/lesson2/search/crawler/pkg/spider"
+	"go.core/lesson2/search/engine/pkg/search"
 )
 
 func main() {

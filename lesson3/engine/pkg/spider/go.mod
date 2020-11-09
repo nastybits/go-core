@@ -1,4 +1,4 @@
-module go.core/lesson2/serach/crawler/pkg/spider
+module go.core/lesson3/engine/pkg/spider
 
 go 1.13
 
