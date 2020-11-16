@@ -26,22 +26,20 @@ func main() {
 	storage := index.New()
 	storage.Init(docs)
 	fmt.Println("завершено.")
-	// fmt.Printf("%v", docs)
-	// fmt.Printf("%v", storage)
 
-	var text string
+	var q string
 	for {
 		fmt.Print("Введите поисковый запрос: ")
-		_, err := fmt.Scanf("%s\n", &text)
+		_, err := fmt.Scanf("%s\n", &q)
 
 		if err != nil {
 			fmt.Println("Программа завершила работу.")
 			return
 		}
 
-		IDs := storage.Find(strings.ToLower(text))
+		IDs := storage.Find(strings.ToLower(q))
 		res := find(IDs, docs)
-		fmt.Printf("Результаты поиска по запросу \"%s\":\nНайдено всего: %d\n", text, len(res))
+		fmt.Printf("Результаты поиска по запросу \"%s\":\nНайдено всего: %d\n", q, len(res))
 		for _, doc := range res {
 			fmt.Println(doc)
 		}

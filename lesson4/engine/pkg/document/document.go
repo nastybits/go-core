@@ -18,6 +18,7 @@ type WebPage struct {
 	id int
 	title string
 	url string
+	Documenter
 }
 
 func New(id int, url string, title string) Documenter {
