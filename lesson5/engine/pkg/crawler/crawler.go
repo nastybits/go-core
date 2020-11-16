@@ -3,28 +3,53 @@
 package crawler
 
 import (
-	"go.core/lesson5/engine/pkg/document"
+	"regexp"
 	"sort"
+	"strings"
 )
 
 type Scanner interface {
 	Scan(url string, depth int) (map[string]string, error)
 }
 
+type Service struct {
+	Scanner Scanner
+}
+
+type Document struct {
+	ID int
+	URL string
+	Title string
+}
+
+func New(s Scanner) Service {
+	return Service{
+		Scanner: s,
+	}
+}
+
 // Scan - осуществляет сканирование с помощью переданного сканера и возвращает документы реализующие
 // интерфейс Documenter в порядке возрастания их ID
-func Scan(s Scanner, urls []string, depth int) (documents []document.Documenter, err error) {
+func (s *Service) Scan(urls []string, depth int) (documents []Document, err error) {
+	var id int
 	for _, url := range urls {
-		data, err := s.Scan(url, depth)
+		data, err := s.Scanner.Scan(url, depth)
 		if err != nil {
 			return documents, err
 		}
-		var id int
 		for url, title := range data {
-			documents = append(documents, document.New(id, url, title))
+			documents = append(documents, Document{ID: id, URL: url, Title: title})
 			id++
 		}
 	}
-	sort.Slice(documents, func(i, j int) bool { return documents[i].Id() < documents[j].Id() })
+
+	sort.Slice(documents, func(i, j int) bool { return documents[i].ID < documents[j].ID })
 	return documents, nil
+}
+
+func (d *Document) Words() []string {
+	str := strings.Trim(strings.ToLower(d.URL + " " + d.Title),"\r\n ")
+	str = regexp.MustCompile(`[^a-zA-Zа-яА-Я0-9]`).ReplaceAllString(str, " ")
+	str = regexp.MustCompile("\\s+").ReplaceAllString(str, ",")
+	return strings.Split(str,",")
 }

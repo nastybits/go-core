@@ -7,6 +7,7 @@ type Scanner int
 // Scan - метод типа Scanner возвращающий предустановленные данные
 func (s Scanner) Scan(url string, depth int) (map[string]string, error) {
 	pages := make(map[string]string)
+
 	pages["http://test1.url"] = "Some test 1 url title"
 	pages["http://test2.url"] = "Some test 2 url title"
 	pages["http://test3.url"] = "Some test 3 url title"

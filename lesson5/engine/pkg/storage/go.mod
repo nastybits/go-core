@@ -1,4 +1,4 @@
-module go.core/lesson5/engine/pkg/index
+module go.core/lesson5/engine/pkg/storage
 
 go 1.15
 

@@ -1,25 +1,29 @@
 package crawler
 
 import (
-	"go.core/lesson5/engine/pkg/crawler/stub"
+	"go.core/lesson5/engine/pkg/crawler/membot"
 	"testing"
 )
 
 var s membot.Scanner
 
 func TestScan(t *testing.T) {
+	c := New(s)
 	tests := []struct {
 		name string
 		urls []string
 		depth int
+		want int
 	}{
-		{"1", []string{"test.com", "test2.com"}, 2},
+		{name: "One site", urls: []string{"first.site"}, depth: 1, want: 9},
+		{name: "Two sites", urls: []string{"first.site", "second.site"}, depth: 2, want: 18},
+		{name: "Three sites", urls: []string{"first.site", "second.site", "third.site"}, depth: 3, want: 27},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			documents, err := Scan(s, tt.urls, tt.depth)
-			if err != nil || documents[0].Title() != "Some test 1 url title" {
-				t.Errorf("Scan() gotDocuments = %v", documents)
+			documents, err := c.Scan(tt.urls, tt.depth)
+			if err != nil || len(documents) != tt.want {
+				t.Errorf("Scan() gotDocuments = %d; want = %d", len(documents), tt.want)
 			}
 		})
 	}

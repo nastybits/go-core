@@ -5,55 +5,65 @@ import (
 	"fmt"
 	"go.core/lesson5/engine/pkg/crawler"
 	"go.core/lesson5/engine/pkg/crawler/spider"
-	"go.core/lesson5/engine/pkg/document"
 	"go.core/lesson5/engine/pkg/index"
-	"sort"
+	"go.core/lesson5/engine/pkg/storage"
+	"go.core/lesson5/engine/pkg/storage/bstree"
 	"strings"
 )
 
+type Engine struct {
+	Crawler crawler.Service
+	Index  index.Service
+	Storage storage.Service
+}
+
 func main() {
 	urls := []string{"https://golangs.org", "https://altech.online"}
+	var spiderScanner spider.Scanner
+	var binaryTree bstree.Tree
+
+	// Инициализация движка и сервисов
+	engine := Engine{
+		Crawler: crawler.New(spiderScanner),
+		Index:   index.New(),
+		Storage: storage.New(&binaryTree),
+	}
 
 	fmt.Print("Сканирование сайтов ")
-	var s spider.Scanner
-	docs, err := crawler.Scan(s, urls, 2)
+	docs, err := engine.Crawler.Scan(urls, 2)
 	if err != nil {
 		return
 	}
 	fmt.Println("завершено.")
 
 	fmt.Print("Индексирование страниц ")
-	storage := index.New()
-	storage.Init(docs)
+	for _, doc := range docs {
+		engine.Index.Add(doc)
+		engine.Storage.Docs.Add(doc)
+	}
 	fmt.Println("завершено.")
-	// fmt.Printf("%v", docs)
-	// fmt.Printf("%v", storage)
 
-	var text string
+	var str string
 	for {
 		fmt.Print("Введите поисковый запрос: ")
-		_, err := fmt.Scanf("%s\n", &text)
+		_, err := fmt.Scanf("%s\n", &str)
 
 		if err != nil {
 			fmt.Println("Программа завершила работу.")
 			return
 		}
 
-		IDs := storage.Find(strings.ToLower(text))
-		res := find(IDs, docs)
-		fmt.Printf("Результаты поиска по запросу \"%s\":\nНайдено всего: %d\n", text, len(res))
+		IDs := engine.Index.Find(strings.ToLower(str))
+		var res []crawler.Document
+		for _, id := range IDs {
+			if d, ok := engine.Storage.Docs.Document(id); ok != false {
+				res = append(res, d)
+			}
+		}
+
+		fmt.Printf("Результаты поиска по запросу \"%s\":\nНайдено всего: %d\n", str, len(res))
 		for _, doc := range res {
 			fmt.Println(doc)
 		}
 	}
-}
-
-func find(IDs []int, d []document.Documenter) (res []document.Documenter) {
-	for _, id := range IDs {
-		idx := sort.Search(len(d), func(i int) bool { return d[i].Id() >= id })
-		if idx < len(d) {
-			res = append(res, d[idx])
-		}
-	}
-	return res
 }
