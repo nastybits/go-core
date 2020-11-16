@@ -1,6 +1,6 @@
 // Package membot - пакет-заглушка для реализации поискового робота
 // Имитирует паука обходящего web-страницы при помощи метода Scan
-package stub
+package membot
 
 type Scanner int
 
