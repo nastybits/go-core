@@ -5,21 +5,21 @@ import (
 	"go.core/lesson4/engine/pkg/document"
 )
 
-type Storage map[string][]int
+type Index map[string][]int
 
-func New() Storage {
-	s := make(Storage)
+func New() Index {
+	s := make(Index)
 	return s
 }
 
-func (s Storage) Init(d []document.Documenter) {
+func (s Index) Init(d []document.Documenter) {
 	for _, doc := range d {
 		s.Add(doc)
 	}
 }
 
 // Index - индексирует переданный документ и сохраняет его обратный индекс в Storage
-func (s Storage) Add(d document.Documenter) {
+func (s Index) Add(d document.Documenter) {
 	for _, word := range d.Words() {
 		items, ok := s[word]
 		if !ok {
@@ -31,7 +31,7 @@ func (s Storage) Add(d document.Documenter) {
 	}
 }
 
-func (s Storage) Find(str string) (i []int) {
+func (s Index) Find(str string) (i []int) {
 	i, _ = s[str]
 	return i
 }
