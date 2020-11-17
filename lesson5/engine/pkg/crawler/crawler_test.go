@@ -5,9 +5,9 @@ import (
 	"testing"
 )
 
-var s membot.Scanner
 
 func TestScan(t *testing.T) {
+	var s membot.Scanner
 	c := New(s)
 	tests := []struct {
 		name string

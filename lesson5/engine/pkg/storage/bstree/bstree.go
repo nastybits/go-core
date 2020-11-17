@@ -4,11 +4,12 @@ package bstree
 
 import "go.core/lesson5/engine/pkg/crawler"
 
-// Tree структура для работы с документами. Представляет из себя двоичное дерево поиска
+// Tree структура для работы с элементами. Представляет из себя двоичное дерево поиска
 type Tree struct {
 	root *Element
 }
 
+// Element структура для хранения элемента дерева
 type Element struct {
 	left, right *Element
 	Doc         crawler.Document
@@ -30,11 +31,6 @@ func (t *Tree) Add(doc crawler.Document) {
 		return
 	}
 	insert(t.root, el)
-}
-
-// Remove - удаляет элемент из дерева
-func (t *Tree) Remove(id int) error {
-	return nil
 }
 
 // search - рекурсивно ищет элемент в дереве

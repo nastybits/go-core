@@ -8,16 +8,15 @@ import (
 type Storager interface {
 	Document(id int) (crawler.Document, bool)
 	Add(d crawler.Document)
-	Remove(id int) error
 }
 
 type Service struct {
-	Docs Storager
+	Storager
 }
 
 // New - конструктор службы хранения данных
-func New(d Storager) Service {
+func New(s Storager) Service {
 	return Service{
-		Docs: d,
+		s,
 	}
 }
