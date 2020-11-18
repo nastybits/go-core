@@ -1,7 +1,7 @@
 package crawler
 
 import (
-	"go.core/lesson4/engine/pkg/crawler/stub"
+	"go.core/lesson4/pkg/crawler/stub"
 	"testing"
 )
 

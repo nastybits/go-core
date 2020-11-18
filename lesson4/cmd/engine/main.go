@@ -3,10 +3,10 @@ package main
 
 import (
 	"fmt"
-	"go.core/lesson4/engine/pkg/crawler"
-	"go.core/lesson4/engine/pkg/crawler/spider"
-	"go.core/lesson4/engine/pkg/document"
-	"go.core/lesson4/engine/pkg/index"
+	"go.core/lesson4/pkg/crawler"
+	"go.core/lesson4/pkg/crawler/spider"
+	"go.core/lesson4/pkg/document"
+	"go.core/lesson4/pkg/index"
 	"sort"
 	"strings"
 )

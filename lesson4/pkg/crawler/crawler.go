@@ -3,7 +3,7 @@
 package crawler
 
 import (
-	"go.core/lesson4/engine/pkg/document"
+	"go.core/lesson4/pkg/document"
 	"sort"
 )
 
