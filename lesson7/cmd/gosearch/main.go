@@ -1,4 +1,4 @@
-// Package main - задание шестого урока для курса go-core.
+// Package main - пакет поискового робота для задания 7
 package main
 
 import (
