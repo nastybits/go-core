@@ -7,7 +7,7 @@ import (
 )
 
 func TestScan(t *testing.T) {
-	const url = "https://habr.com"
+	const url = "https://go.dev"
 	const depth = 2
 	var s Scanner
 	data, err := s.Scan(url, depth)

@@ -1,25 +1,15 @@
 // Package membot - пакет-заглушка для локального кэша
 package membot
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"go.core/lesson8/pkg/fixtures"
+)
 
 type Cache struct {}
 
-type doc struct {
-	ID int
-	URL string
-	Title string
-}
-
 func (c *Cache) Load() ([]byte, error) {
-	docs := []doc{
-		{ID: 1, URL: "test1.com", Title: "Test 1"},
-		{ID: 2, URL: "test2.com", Title: "Test 2"},
-		{ID: 3, URL: "test3.com", Title: "Test 3"},
-		{ID: 4, URL: "test4.com", Title: "Test 4"},
-		{ID: 5, URL: "test5.com", Title: "Test 5"},
-	}
-
+	docs := fixtures.Documents()
 	return json.Marshal(&docs)
 }
 

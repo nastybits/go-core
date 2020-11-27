@@ -3,6 +3,7 @@ module go.core/lesson8/cmd
 go 1.13
 
 replace (
+	go.core/lesson8/pkg/fixtures v0.0.0 => ../../pkg/fixtures
 	go.core/lesson8/pkg/engine v0.0.0 => ../../pkg/engine
 	go.core/lesson8/pkg/cache v0.0.0 => ../../pkg/cache
 	go.core/lesson8/pkg/cache/local v0.0.0 => ../../pkg/cache/local

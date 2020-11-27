@@ -46,6 +46,7 @@ func (s *Service) Load() error {
 	return nil
 }
 
+// Search - Поиск документов содержащих переданную строку
 func (s *Service) Search(str string) (docs []crawler.Document) {
 	ids := s.index.Find(str)
 	for _, id := range ids {

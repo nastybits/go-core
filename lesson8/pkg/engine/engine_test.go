@@ -4,38 +4,61 @@ import (
 	"encoding/json"
 	"go.core/lesson8/pkg/cache/membot"
 	"go.core/lesson8/pkg/crawler"
+	"go.core/lesson8/pkg/fixtures"
 	"go.core/lesson8/pkg/index"
 	"go.core/lesson8/pkg/storage"
+	"os"
+	"reflect"
 	"testing"
 )
 
-func TestEngine_Load(t *testing.T) {
-	e := New(index.New(), storage.New(), &membot.Cache{})
-	t.Run("Load cached docs", func(t *testing.T) {
-		if err := e.Load(); err != nil {
+var engine *Service
+
+func TestMain(m *testing.M) {
+	engine = New(index.New(), storage.New(), &membot.Cache{})
+	os.Exit(m.Run())
+}
+
+func TestEngine_LoadSave(t *testing.T) {
+	t.Run("Load and save docs", func(t *testing.T) {
+		err := engine.Load()
+		if err != nil {
 			t.Errorf("Load() error = %v, want %v", err, nil)
+		}
+
+		var docs []crawler.Document
+		data, _ := engine.cache.Load()
+		err = json.Unmarshal(data, &docs)
+		if err != nil {
+			t.Logf("Ошибка при раскодировании данных")
+		}
+
+		if err := engine.Save(docs); err != nil {
+			t.Errorf("Save() error = %v, want %v", err, nil)
 		}
 	})
 }
 
-func TestEngine_Save(t *testing.T) {
-	c := membot.Cache{}
-	e := New(index.New(), storage.New(), &c)
-
-	data, err := c.Load()
+func TestService_Search(t *testing.T) {
+	docs := fixtures.Documents()
+	err := engine.Load()
 	if err != nil {
-		t.Errorf("Ошибка в тесте Load")
+		t.Errorf("Не удалось загрузить тестовые данные")
 	}
 
-	var docs []crawler.Document
-	err = json.Unmarshal(data, &docs)
-	if err != nil {
-		t.Errorf("Ошибка в тесте Load")
+	tests := []struct {
+		name     string
+		arg     string
+		wantDocs []crawler.Document
+	}{
+		{name: "Find one", arg: "one", wantDocs: []crawler.Document{docs[0]}},
+		{name: "Find in8and2", arg: "in8and2", wantDocs: []crawler.Document{docs[1], docs[7]}},
 	}
-
-	t.Run("Save cached docs", func(t *testing.T) {
-		if err := e.Save(docs); err != nil {
-			t.Errorf("Save() error = %v, want %v", err, nil)
-		}
-	})
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotDocs := engine.Search(tt.arg); !reflect.DeepEqual(gotDocs, tt.wantDocs) {
+				t.Errorf("Search() = %v, want %v", gotDocs, tt.wantDocs)
+			}
+		})
+	}
 }
