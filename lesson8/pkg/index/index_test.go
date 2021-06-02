@@ -49,8 +49,8 @@ func TestService_Add(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			index.Add(tt.docs[0])
-			items, ok := index.data["url"]
+			tt.s.Add(tt.docs[0])
+			items, ok := tt.s.data["url"]
 			if !ok || items[0] != 1 {
 				t.Errorf("got = %v, want %v", items, 1)
 			}
