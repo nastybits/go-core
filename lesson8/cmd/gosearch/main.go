@@ -9,6 +9,7 @@ import (
 	"go.core/lesson8/pkg/engine"
 	"go.core/lesson8/pkg/index"
 	"go.core/lesson8/pkg/storage"
+	"log"
 	"strings"
 )
 
@@ -28,7 +29,7 @@ func new() *gosearch {
 	gs.scanner 	= crawler.New(s)
 	gs.index 	= index.New()
 	gs.storage 	= storage.New()
-	gs.engine 	= engine.New(gs.index, gs.storage, local.New("../data/storage.txt"))
+	gs.engine 	= engine.New(gs.index, gs.storage, local.New("../../data/storage.txt"))
 
 	return &gs
 }
@@ -46,6 +47,7 @@ func (gs *gosearch) init(urls []string) {
 		gs.storage.Create(docs)
 		err = gs.engine.Save(docs)
 		if err != nil {
+			log.Fatal(err)
 			fmt.Println("Не удалось закэшировать данные")
 		}
 		return
@@ -61,6 +63,7 @@ func (gs *gosearch) init(urls []string) {
 		gs.storage.Create(docs)
 		err = gs.engine.Save(docs)
 		if err != nil {
+			log.Fatal(err)
 			fmt.Println("Не удалось закэшировать данные")
 		}
 	}()

@@ -28,7 +28,7 @@ func new() *gosearch {
 	gs.scanner 	= crawler.New(s)
 	gs.index 	= index.New()
 	gs.storage 	= storage.New()
-	gs.engine 	= engine.New(gs.index, gs.storage, local.New("../data/storage.txt"))
+	gs.engine 	= engine.New(gs.index, gs.storage, local.New("../../data/storage.txt"))
 
 	return &gs
 }
