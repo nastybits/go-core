@@ -3,12 +3,13 @@ package main
 
 import (
 	"fmt"
-	"go.core/lesson7/pkg/cache/local"
-	"go.core/lesson7/pkg/crawler"
-	"go.core/lesson7/pkg/crawler/spider"
-	"go.core/lesson7/pkg/engine"
-	"go.core/lesson7/pkg/index"
-	"go.core/lesson7/pkg/storage"
+	"go.core/lesson8/pkg/cache/local"
+	"go.core/lesson8/pkg/crawler"
+	"go.core/lesson8/pkg/crawler/spider"
+	"go.core/lesson8/pkg/engine"
+	"go.core/lesson8/pkg/index"
+	"go.core/lesson8/pkg/storage"
+	"log"
 	"strings"
 )
 
@@ -46,6 +47,7 @@ func (gs *gosearch) init(urls []string) {
 		gs.storage.Create(docs)
 		err = gs.engine.Save(docs)
 		if err != nil {
+			log.Fatal(err)
 			fmt.Println("Не удалось закэшировать данные")
 		}
 		return
@@ -61,6 +63,7 @@ func (gs *gosearch) init(urls []string) {
 		gs.storage.Create(docs)
 		err = gs.engine.Save(docs)
 		if err != nil {
+			log.Fatal(err)
 			fmt.Println("Не удалось закэшировать данные")
 		}
 	}()
