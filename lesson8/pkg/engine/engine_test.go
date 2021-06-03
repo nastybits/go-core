@@ -20,23 +20,24 @@ func TestMain(m *testing.M) {
 }
 
 func TestEngine_LoadSave(t *testing.T) {
-	t.Run("Load and save docs", func(t *testing.T) {
-		err := engine.Load()
-		if err != nil {
-			t.Errorf("Load() error = %v, want %v", err, nil)
-		}
+	err := engine.Load()
 
-		var docs []crawler.Document
-		data, _ := engine.cache.Load()
-		err = json.Unmarshal(data, &docs)
-		if err != nil {
-			t.Logf("Ошибка при раскодировании данных")
-		}
+	if err != nil {
+		t.Errorf("Load() error = %v, want %v", err, nil)
+	}
 
-		if err := engine.Save(docs); err != nil {
-			t.Errorf("Save() error = %v, want %v", err, nil)
-		}
-	})
+	var docs []crawler.Document
+
+	data, _ := engine.cache.Load()
+	err = json.Unmarshal(data, &docs)
+
+	if err != nil {
+		t.Logf("Ошибка при раскодировании данных")
+	}
+
+	if err := engine.Save(docs); err != nil {
+		t.Errorf("Save() error = %v, want %v", err, nil)
+	}
 }
 
 func TestService_Search(t *testing.T) {
@@ -48,7 +49,7 @@ func TestService_Search(t *testing.T) {
 
 	tests := []struct {
 		name     string
-		arg     string
+		arg      string
 		wantDocs []crawler.Document
 	}{
 		{name: "Find one", arg: "one", wantDocs: []crawler.Document{docs[0]}},
